@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { TodoI } from '../models/TodoI';
 import Todo from './Todo';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 interface TodoListProps {
   name: string;
@@ -35,6 +36,10 @@ const TodoList: FC<TodoListProps> = ({ name, onDelete }) => {
     );
   };
 
+  const handleDeleteTodo = (id: number) => {
+    setTodos((prev) => prev.filter((todo) => todo.id != id));
+  };
+
   return (
     <div className="flex flex-col gap-5 p-4 border rounded">
       <div className="flex justify-between">
@@ -45,7 +50,7 @@ const TodoList: FC<TodoListProps> = ({ name, onDelete }) => {
           tabIndex={0}
           onClick={() => onDelete()}
         >
-          Borrar
+          <DeleteOutlineOutlinedIcon />
         </span>
       </div>
 
@@ -90,6 +95,7 @@ const TodoList: FC<TodoListProps> = ({ name, onDelete }) => {
             description={todo.description}
             completed={todo.completed}
             onChange={() => handleChangeTodo(todo.id)}
+            onDelete={() => handleDeleteTodo(todo.id)}
           />
         ))}
       </ul>
